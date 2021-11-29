@@ -1,5 +1,3 @@
 # GESTOR DE MAQUINAS
 
-Linea 1 
-Linea 2 
-Linea 3
+App creada en Ingenieria del software para gestionar las máquinas de reserva.
