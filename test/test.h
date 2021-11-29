@@ -1,16 +1,8 @@
-/*
- * test.h
- *
- *  Created on: 22 nov. 2021
- *      Author: tomas
- */
+#ifndef TEST_H_
+#define TEST_H_
 
-#ifndef TEST_TEST_H_
-#define TEST_TEST_H_
+#include "cute_suite.h"
 
-class test {
-public:
-	test();
-};
+extern cute::suite make_suite_test();
 
-#endif /* TEST_TEST_H_ */
+#endif /* TEST_H_ */

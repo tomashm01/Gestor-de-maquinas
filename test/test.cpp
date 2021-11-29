@@ -1,14 +1,12 @@
-/*
- * test.cpp
- *
- *  Created on: 22 nov. 2021
- *      Author: tomas
- */
-
 #include "test.h"
+#include "cute.h"
 
-test::test() {
-	// TODO Auto-generated constructor stub
-
+void thisIsAtestTest() {
+	ASSERTM("start writing tests", false);	
 }
 
+cute::suite make_suite_test() {
+	cute::suite s { };
+	s.push_back(CUTE(thisIsAtestTest));
+	return s;
+}
