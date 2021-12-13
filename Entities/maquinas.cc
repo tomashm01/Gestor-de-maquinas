@@ -41,12 +41,12 @@ void Maquina::setDescrip(char *descrip_) {
  * Devuelve true si se puede insertar la maquina y false si no se puede porque
  * ya existe
  */
-bool Maquina:: ValidarMaquina() {
+bool Maquina:: validarMaquina() {
 
 	if(listaMaquina.size()<1) return true; //Si la lista esta vacia
 
 	for (auto it=listaMaquinas.begin();it!=listaMaquinas.end();++it){
-		//Existe usuario con ese dni
+		//Existe maquina con ese Id
 		if(*it->getId()==this->getId()){
 			return false;
 		}
@@ -61,8 +61,8 @@ bool Maquina:: ValidarMaquina() {
  * Añado maquinas al final de la lista
  * Devuelve true si se ha insertado y false si no se ha podido
  */
-bool Maquina::AddMaquina(Maquina maquina){
-	if(maquina.ValidarMaquina()){ //Si puedo insertar el usuario
+bool Maquina::addMaquina(Maquina maquina){
+	if(maquina.validarMaquina()){ //Si puedo insertar la maquina
 		listaMaquinas.push_back(maquina);
 		return true;
 	}
@@ -71,14 +71,14 @@ bool Maquina::AddMaquina(Maquina maquina){
 
 
 /**
- * Borrar usuario de la lista
+ * Borrar maquina de la lista
  * Devuelve true si se ha podido eliminar y false si no se ha podido
  */
-bool Maquina :: DeleteMaquina(Maquina maquina){
-	if(maquina.ValidarMaquina()){ //Existe usuario en mi lista
+bool Maquina :: deleteMaquina(Maquina maquina){
+	if(maquina.validarMaquina()){ //Existe maquina en mi lista
 		for (auto it=listaMaquinas.begin();it!=listaMaquinas.end();++it){
-				//Existe usuario con ese dni
-				if(*it->getId()==user.getId()){
+				//Existe maquina con ese id
+				if(*it->getId()==maquina.getId()){
 					listaMaquinas.remove(*it);
 					return true;
 				}
@@ -89,13 +89,13 @@ bool Maquina :: DeleteMaquina(Maquina maquina){
 
 
 /**
- *Cambia todas las propiedades de un usuario
+ *Cambia todas las propiedades de una maquina
  *Para ello lo elimino y lo inserto
  *Devuelve true si lo modifica correctamente y false si no lo hace
  */
-bool Maquina::changeUserById(int id_,Maquina maquina){
+bool Maquina::changesMaquinaByID(int id_,Maquina maquina){
 	for (auto it=listaMaquinas.begin();it!=listaMaquinas.end();++it){
-				//Existe usuario con ese dni
+				//Existe maquina con ese Id
 				if(*it->getId()==id_){
 					listaMaquinas.erase(it);
 					listaMaquinas.insert(it,maquina);
