@@ -1,13 +1,12 @@
 #include <ctime>
 #include <cstdlib>
 #include <cstring>
-#include <cmath>
 #include <string>
-#include <vector>
 #include <list>
 
 #ifndef RESERVA_H
 #define RESERVA_H
+using namespace std;
 
 class Reserva {
 
@@ -15,24 +14,23 @@ private:
 
 	int idReserva_;
 	int maxdias_;
-	char* fechain_;
-	char* fechaout_;
+	string fechain_;
+	string fechaout_;
 	static std::list<Reserva> listaReserva;
 
 public:
 
-	Reserva(int idReserva, int maxdias,char* fechain, char* fechaout);
+	Reserva(int idReserva, int maxdias,string fechain, string fechaout);
 
 	int getId();
 	int getDias();
-	char* getFechaIn();
-	char* getFechaOut();
-	char* toString();
+	string getFechaIn();
+	string getFechaOut();
 
 	void setId(int idReserva);
 	void setDias(int maxdias);
-	void setFechaIn(char* fechain);
-	void setFechaOut(char* fechaout);
+	void setFechaIn(string fechain);
+	void setFechaOut(string fechaout);
 
 	bool addReserva(Reserva reserve);
 	bool deleteReserva(Reserva reserve);

@@ -8,38 +8,41 @@
 #ifndef ENTITIES_USUARIO_H_
 #define ENTITIES_USUARIO_H_
 #include <list>
+#include <cstdlib>
+#include <cstring>
+#include <string>
 using namespace std;
 
 class Usuario {
 private:
-	char *dni;
-	char *password;
-	char *nickname;
-	char *nombreCompleto;
-	char *rol;
+	string dni;
+	string password;
+	string nickname;
+	string nombreCompleto;
+	string rol;
 	static std::list<Usuario> listaUsuarios;
 public:
-	Usuario(char *dni, char *password, char *nickname, char *nombreCompleto,
-			char *rol);
+	Usuario(string dni, string password, string nickname, string nombreCompleto,
+			string rol);
 
-	char* getDni();
-	char* getPassword();
-	char* getNickname();
-	char* getNombre();
-	char* getRol();
-	char* toString();
+	string getDni();
+	string getPassword();
+	string getNickname();
+	string getNombre();
+	string getRol();
+	string toString();
 
-	void setDni(char* dni);
-	void setPassword(char* password);
-	void setNickname(char* nickname);
-	void setNombre(char* nombreCompleto);
-	void setRol(char* rol);
+	void setDni(string dni);
+	void setPassword(string password);
+	void setNickname(string nickname);
+	void setNombre(string nombreCompleto);
+	void setRol(string rol);
 
 	bool validarUsuario();
 	bool addUsuario(Usuario user);
 	bool deleteUsuario(Usuario user);
-	Usuario showUserByDNI(char* dni);
-	bool changeUserByDNI(char* dni,Usuario user);
+	Usuario showUserByDNI(string dni);
+	bool changeUserByDNI(string dni,Usuario user);
 
 };
 

@@ -1,5 +1,5 @@
 #include "Maquina.h"
-Maquina::Maquina(int id_, int nucleos_, char *descrip_){
+Maquina::Maquina(int id_, int nucleos_, string descrip_){
 	
     this->id_ = id_;
 	this->nucleos_ = nucleos_;
@@ -13,12 +13,9 @@ int Maquina::getId() {
 int Maquina::getNucleos() {
 	return this->nucleos_;
 }
-char* Maquina::getDescrip() {
+string Maquina::getDescrip() {
 	return this->descrip_;
 
-}
-char* Maquina::toString(){
-	return this->getId()+"."+this->getNucleos()+", descripcion: "+this->getDescrip()+"\n";
 }
 
 void Maquina::setId(int id_) {
@@ -27,7 +24,7 @@ void Maquina::setId(int id_) {
 void Maquina::setNucelos(int nucleos_) {
 	this->nucleos_ = nucleos_;
 }
-void Maquina::setDescrip(char *descrip_) {
+void Maquina::setDescrip(string descrip_) {
 	this->descrip_ = descrip_;
 }
 

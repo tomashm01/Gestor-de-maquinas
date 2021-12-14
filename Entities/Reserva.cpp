@@ -7,7 +7,7 @@
 #include <list>
 #include "Reserva.h"
 
-Reserva::Reserva(int idReserva, int max_dias, char* fechain, char* fechaout) {
+Reserva::Reserva(int idReserva, int max_dias, string fechain, string fechaout) {
 	this->setDias(max_dias);
 	this->setFechaIn(fechain);
 	this->setFechaOut(fechaout);
@@ -21,15 +21,11 @@ int Reserva::getId() {
 int Reserva::getDias() {
 	return this->maxdias_;
 }
-char* Reserva::getFechaIn() {
+string Reserva::getFechaIn() {
 	return fechain_;
 }
-char* Reserva::getFechaOut() {
+string Reserva::getFechaOut() {
 	return this->fechaout_;
-}
-
-char* Reserva::toString(){
-	return getId() + ":" + getDias() + ", fecha de entrada: " + getFechaIn() + " y fecha de salida: " + getfechaOut() + "\n";
 }
 
 void Reserva::setId(int idReserva) {
@@ -38,10 +34,10 @@ void Reserva::setId(int idReserva) {
 void Reserva::setDias(int max_dias) {
 	this->maxdias_ = max_dias;
 }
-void Reserva::setFechaIn(char* fechain) {
+void Reserva::setFechaIn(string fechain) {
 	this->fechain_ = fechain;
 }
-void Reserva::setFechaOut(char* fechaout) {
+void Reserva::setFechaOut(string fechaout) {
 	this->fechaout_ = fechaout;
 }
 

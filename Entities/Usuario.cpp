@@ -7,8 +7,8 @@
 
 #include "Usuario.h"
 
-Usuario::Usuario(char *dni, char *password, char *nickname,
-		char *nombreCompleto, char *rol) {
+Usuario::Usuario(string dni, string password, string nickname,
+		string nombreCompleto, string rol) {
 	this->dni = dni;
 	this->password = password;
 	this->nickname = nickname;
@@ -17,38 +17,38 @@ Usuario::Usuario(char *dni, char *password, char *nickname,
 }
 
 //GETTERS Y SETTERS
-char* Usuario::getDni() {
+string Usuario::getDni() {
 	return this->dni;
 }
-char* Usuario::getPassword() {
+string Usuario::getPassword() {
 	return this->password;
 }
-char* Usuario::getNombre() {
+string Usuario::getNombre() {
 	return this->nombreCompleto;
 }
-char* Usuario::getNickname() {
+string Usuario::getNickname() {
 	return this->nickname;
 }
-char* Usuario::getRol() {
+string Usuario::getRol() {
 	return this->rol;
 }
-char* Usuario::toString(){
+string Usuario::toString(){
 	return this->getDni()+"."+this->getNickname()+", rol: "+this->getRol()+"\n";
 }
 
-void Usuario::setDni(char *dni) {
+void Usuario::setDni(string dni) {
 	this->dni = dni;
 }
-void Usuario::setPassword(char *password) {
+void Usuario::setPassword(string password) {
 	this->password = password;
 }
-void Usuario::setNickname(char *nickname) {
+void Usuario::setNickname(string nickname) {
 	this->nickname = nickname;
 }
-void Usuario::setNombre(char *nombreCompleto) {
+void Usuario::setNombre(string nombreCompleto) {
 	this->nombreCompleto = nombreCompleto;
 }
-void Usuario::setRol(char *rol) {
+void Usuario::setRol(string rol) {
 	this->rol = rol;
 }
 
@@ -105,7 +105,7 @@ bool Usuario::deleteUsuario(Usuario user){
  * Devuelve el Usuario encontrado con ese id si lo encuentra o devuelve -1
  * si no lo ha encontrado ese dni
  */
-Usuario Usuario::showUserByDNI(char* dni){
+Usuario Usuario::showUserByDNI(string dni){
 	for (auto it=listaUsuarios.begin();it!=listaUsuarios.end();++it){
 			//Existe usuario con ese dni
 			if(it->getDni()==dni){
@@ -120,7 +120,7 @@ Usuario Usuario::showUserByDNI(char* dni){
  *Para ello lo elimino y lo inserto
  *Devuelve true si lo modifica correctamente y false si no lo hace
  */
-bool Usuario::changeUserByDNI(char* dni,Usuario user){
+bool Usuario::changeUserByDNI(string dni,Usuario user){
 	for (auto it=listaUsuarios.begin();it!=listaUsuarios.end();++it){
 				//Existe usuario con ese dni
 				if(it->getDni()==dni){
