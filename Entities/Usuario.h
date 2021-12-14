@@ -8,6 +8,7 @@
 #ifndef ENTITIES_USUARIO_H_
 #define ENTITIES_USUARIO_H_
 #include <list>
+using namespace std;
 
 class Usuario {
 private:

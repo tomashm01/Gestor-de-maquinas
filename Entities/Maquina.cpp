@@ -1,9 +1,5 @@
-
-
-
-
-#include "maquina.h"
-Maquina::Maquina(int id_, int nucleos_, char *descrip_);
+#include "Maquina.h"
+Maquina::Maquina(int id_, int nucleos_, char *descrip_){
 	
     this->id_ = id_;
 	this->nucleos_ = nucleos_;
@@ -43,11 +39,11 @@ void Maquina::setDescrip(char *descrip_) {
  */
 bool Maquina:: validarMaquina() {
 
-	if(listaMaquina.size()<1) return true; //Si la lista esta vacia
+	if(listaMaquinas.size()<1) return true; //Si la lista esta vacia
 
 	for (auto it=listaMaquinas.begin();it!=listaMaquinas.end();++it){
 		//Existe maquina con ese Id
-		if(*it->getId()==this->getId()){
+		if(it->getId()==this->getId()){
 			return false;
 		}
 	}
@@ -78,7 +74,7 @@ bool Maquina :: deleteMaquina(Maquina maquina){
 	if(maquina.validarMaquina()){ //Existe maquina en mi lista
 		for (auto it=listaMaquinas.begin();it!=listaMaquinas.end();++it){
 				//Existe maquina con ese id
-				if(*it->getId()==maquina.getId()){
+				if(it->getId()==maquina.getId()){
 					listaMaquinas.remove(*it);
 					return true;
 				}
@@ -96,7 +92,7 @@ bool Maquina :: deleteMaquina(Maquina maquina){
 bool Maquina::changesMaquinaByID(int id_,Maquina maquina){
 	for (auto it=listaMaquinas.begin();it!=listaMaquinas.end();++it){
 				//Existe maquina con ese Id
-				if(*it->getId()==id_){
+				if(it->getId()==id_){
 					listaMaquinas.erase(it);
 					listaMaquinas.insert(it,maquina);
 					return true;

@@ -63,7 +63,7 @@ bool Usuario::validarUsuario() {
 
 	for (auto it=listaUsuarios.begin();it!=listaUsuarios.end();++it){
 		//Existe usuario con ese dni
-		if(*it->getDni()==this->getDni()){
+		if(it->getDni()==this->getDni()){
 			return false;
 		}
 	}
@@ -91,7 +91,7 @@ bool Usuario::deleteUsuario(Usuario user){
 	if(user.validarUsuario()){ //Existe usuario en mi lista
 		for (auto it=listaUsuarios.begin();it!=listaUsuarios.end();++it){
 				//Existe usuario con ese dni
-				if(*it->getDni()==user.getDni()){
+				if(it->getDni()==user.getDni()){
 					listaUsuarios.remove(*it);
 					return true;
 				}
@@ -108,11 +108,11 @@ bool Usuario::deleteUsuario(Usuario user){
 Usuario Usuario::showUserByDNI(char* dni){
 	for (auto it=listaUsuarios.begin();it!=listaUsuarios.end();++it){
 			//Existe usuario con ese dni
-			if(*it->getDni()==dni){
+			if(it->getDni()==dni){
 				return *it;
 			}
 		}
-	return -1;
+	return (Usuario("-1","","","",""));
 }
 
 /**
@@ -123,7 +123,7 @@ Usuario Usuario::showUserByDNI(char* dni){
 bool Usuario::changeUserByDNI(char* dni,Usuario user){
 	for (auto it=listaUsuarios.begin();it!=listaUsuarios.end();++it){
 				//Existe usuario con ese dni
-				if(*it->getDni()==dni){
+				if(it->getDni()==dni){
 					listaUsuarios.erase(it);
 					listaUsuarios.insert(it,user);
 					return true;

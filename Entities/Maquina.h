@@ -38,8 +38,8 @@ class Maquina{
 
     bool deleteMaquina(Maquina maquina);
 
-    void changesMaquinaByID(int id_ , Maquina maquina);
+    bool changesMaquinaByID(int id_ , Maquina maquina);
 
-}
+};
 
 #endif
