@@ -1,5 +1,4 @@
 #include <iostream>
-#include <fstream>
 #include <cstdlib>
 #include <cstdio>
 #include <string>
@@ -15,21 +14,20 @@ class Maquina{
     
     int id_;
     int nucleos_;
-    char* descrip_;
+    string descrip_;
     static std::list<Maquina> listaMaquinas;
     
 
     public:
-	Maquina(int id_, int nucleos_, char *descrip_);
+	Maquina(int id_, int nucleos_, string descrip_);
 
     int getId();
 	int getNucleos();
-	char* getDescrip();
-    char* toString();
+	string getDescrip();
 
 	void setId(int id_);
 	void setNucelos(int nucleos_);
-	void setDescrip(char* descrip_);
+	void setDescrip(string descrip_);
     	
 
     bool validarMaquina();
