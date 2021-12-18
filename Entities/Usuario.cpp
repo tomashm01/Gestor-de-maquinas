@@ -65,8 +65,8 @@ bool Usuario::validarUsuario() {
 	} else {
 		string linea;
     	while(getline(rdUsuarios, linea)){
-			string dni=linea.substr(0,1);
-			if(dni==this->getDni()){
+			string dni=linea.substr(0,linea.find(','));
+			if(this->getDni()==dni){
 				return false;
 			}
     	}
@@ -99,19 +99,30 @@ bool Usuario::addUsuario(){
 * Borrar usuario de la lista
 * Devuelve true si se ha podido eliminar y false si no se ha podido
 */
-bool Usuario::deleteUsuario(string dni){
+bool Usuario::deleteUsuario(){
 	ifstream rdUsuarios("usuarios.txt");
-	if(this->validarUsuario()){ //Existe usuario en mi lista
-		string linea;
-		while(getline(rdUsuarios,linea,',')){
-			if(linea==dni){//Elimino la linea entera
-				linea.clear();
+	ofstream wrUsuario("temporal.txt");
+	int lineasFichAntiguo=0,lineasFichNuevo=0;
+	string linea;
+
+	if(!this->validarUsuario()){ //Existe usuario en mi lista	
+		while(getline(rdUsuarios, linea)){
+			string dni=linea.substr(0,linea.find(','));
+			if(dni==this->getDni()){
+				lineasFichAntiguo++;
+				continue;
+			}else{
+				wrUsuario<<linea<<endl;
+				lineasFichNuevo++;
+				lineasFichAntiguo++;
 			}
-		}
-		rdUsuarios.close();
-		return true;
+    	}
 	}
-	return false;
+	if(lineasFichAntiguo==lineasFichNuevo){ //Si son mismas lineas no se ha eliminado
+		return false;
+	}
+	rename("temporal.txt","usuarios.txt");
+	return true;
 }
 
 /**
@@ -144,9 +155,9 @@ Usuario Usuario::showUserByDNI(string dni){
 *Para ello lo elimino y lo inserto
 *Devuelve true si lo modifica correctamente y false si no lo hace
 */
-bool Usuario::changeUserByDNI(Usuario user){
-	if(deleteUsuario(user.getDni())){
-		return user.addUsuario();
+bool Usuario::changeUser(){
+	if(this->deleteUsuario()){
+		return this->addUsuario();
 	}
 	return false;
 }

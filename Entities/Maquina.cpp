@@ -42,7 +42,7 @@ bool Maquina:: validarMaquina() {
 	}else{
 		string linea;
     	while(getline(rdMaquina, linea)){
-			string id=linea.substr(0,1);
+			string id=linea.substr(0,linea.find(','));
 			if(stoi(id)==this->getId()){
 				return false;
 			}
@@ -79,19 +79,30 @@ bool Maquina::addMaquina(){
  * Borrar maquina de la lista
  * Devuelve true si se ha podido eliminar y false si no se ha podido
  */
-bool Maquina :: deleteMaquina(Maquina maquina){
-	ifstream rdMaquinas("maquinas.txt");
-	if(maquina.validarMaquina()){ //Existe maquina en mi lista
-		string linea;
-		while(getline(rdMaquinas,linea,',')){
-			if(stoi(linea)==maquina.getId()){//Elimino la linea entera
-				linea.clear();
+bool Maquina :: deleteMaquina(){
+	ifstream rdReservas("maquinas.txt");
+	ofstream wrReservas("temporal.txt");
+	int lineasFichAntiguo=0,lineasFichNuevo=0;
+	string linea;
+
+	if(!this->validarMaquina()){ //Existe usuario en mi lista	
+		while(getline(rdReservas, linea)){
+			string dni=linea.substr(0,linea.find(','));
+			if(stoi(dni)==this->getId()){
+				lineasFichAntiguo++;
+				continue;
+			}else{
+				wrReservas<<linea<<endl;
+				lineasFichNuevo++;
+				lineasFichAntiguo++;
 			}
-		}
-		rdMaquinas.close();
-		return true;
+    	}
 	}
-	return false;
+	if(lineasFichAntiguo==lineasFichNuevo){ //Si son mismas lineas no se ha eliminado
+		return false;
+	}
+	rename("temporal.txt","maquinas.txt");
+	return true;
 }
 
 
@@ -100,8 +111,8 @@ bool Maquina :: deleteMaquina(Maquina maquina){
  *Para ello lo elimino y lo inserto
  *Devuelve true si lo modifica correctamente y false si no lo hace
  */
-bool Maquina::changesMaquinaByID(Maquina maquina){
-	if(deleteMaquina(maquina)){
+bool Maquina::changesMaquina(Maquina maquina){
+	if(maquina.deleteMaquina()){
 		return maquina.addMaquina();
 	}
 	return false;

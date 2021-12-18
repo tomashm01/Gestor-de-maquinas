@@ -34,9 +34,9 @@ public:
 
 	bool validarReserva();
 	bool addReserva();
-	bool deleteReserva(int id);
+	bool deleteReserva();
 	Reserva showReservaByID(int idReserva);
-	bool changeReservaByID(Reserva reserve);
+	bool changeReserva(Reserva reserve);
 
 };
 
