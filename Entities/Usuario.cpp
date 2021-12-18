@@ -64,9 +64,9 @@ bool Usuario::validarUsuario() {
 		return false;
 	} else {
 		string linea;
-    	while(getline(rdUsuarios,linea,',')){
-    	    if(linea==this->getDni()){
-				rdUsuarios.close();
+    	while(getline(rdUsuarios, linea)){
+			string dni=linea.substr(0,1);
+			if(dni==this->getDni()){
 				return false;
 			}
     	}
@@ -79,13 +79,13 @@ bool Usuario::validarUsuario() {
 * Añado usuario al final de la lista
 * Devuelve true si se ha insertado y false si no se ha podido
 */
-bool Usuario::addUsuario(Usuario user){
+bool Usuario::addUsuario(){
 	ofstream wrUsuarios("usuarios.txt",ios::app);
 	if(!wrUsuarios){
 		return false;
 	}else{
-		if(user.validarUsuario()){ //Si puedo insertar el usuario
-			wrUsuarios<<user.getDni()<<","<<user.getPassword()<<","<<user.getNickname()<<","<<user.getNombre()<<","<<user.getRol()<<endl;
+		if(this->validarUsuario()){ //Si puedo insertar el usuario
+			wrUsuarios<<this->getDni()<<","<<this->getPassword()<<","<<this->getNickname()<<","<<this->getNombre()<<","<<this->getRol()<<endl;
 			wrUsuarios.close();
 			return true;
 		}else{
@@ -146,7 +146,7 @@ Usuario Usuario::showUserByDNI(string dni){
 */
 bool Usuario::changeUserByDNI(Usuario user){
 	if(deleteUsuario(user.getDni())){
-		return addUsuario(user);
+		return user.addUsuario();
 	}
 	return false;
 }

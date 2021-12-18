@@ -38,7 +38,7 @@ public:
 	void setRol(string rol);
 
 	bool validarUsuario();
-	bool addUsuario(Usuario user);
+	bool addUsuario();
 	bool deleteUsuario(string dni);
 	Usuario showUserByDNI(string dni);
 	bool changeUserByDNI(Usuario user);
