@@ -1,8 +1,7 @@
-#include <ctime>
-#include <cstdlib>
-#include <cstring>
 #include <string>
-#include <list>
+#include <cstdlib>
+#include <iostream>
+#include <fstream>
 
 #ifndef RESERVA_H
 #define RESERVA_H
@@ -16,7 +15,6 @@ private:
 	int maxdias_;
 	string fechain_;
 	string fechaout_;
-	static std::list<Reserva> listaReserva;
 
 public:
 
@@ -32,11 +30,12 @@ public:
 	void setFechaIn(string fechain);
 	void setFechaOut(string fechaout);
 
+	bool validarReserva();
 	bool addReserva(Reserva reserve);
 	bool deleteReserva(Reserva reserve);
 	Reserva showReservaByID(int idReserva);
-	bool changeReservaByID(int idReserva,Reserva reserve);
-	bool validarReserva();
+	bool changeReservaByID(Reserva reserve);
+
 };
 
 #endif 

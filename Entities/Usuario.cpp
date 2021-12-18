@@ -60,15 +60,19 @@ void Usuario::setRol(string rol) {
 bool Usuario::validarUsuario() {
 
 	ifstream rdUsuarios("usuarios.txt");
-    string linea;
-    while(getline(rdUsuarios,linea,',')){
-        if(linea==this->getDni()){
-			rdUsuarios.close();
-			return false;
-		}
-    }
-	rdUsuarios.close();
-	return true;
+	if (!rdUsuarios) {
+		return false;
+	} else {
+		string linea;
+    	while(getline(rdUsuarios,linea,',')){
+    	    if(linea==this->getDni()){
+				rdUsuarios.close();
+				return false;
+			}
+    	}
+		rdUsuarios.close();
+		return true;
+	}
 }
 
 /**
@@ -78,13 +82,12 @@ bool Usuario::validarUsuario() {
 bool Usuario::addUsuario(Usuario user){
 	ofstream wrUsuarios("usuarios.txt",ios::app);
 	if(!wrUsuarios){
-		cout << "Error al abrir el fichero" << endl;
 		return false;
 	}else{
 		if(user.validarUsuario()){ //Si puedo insertar el usuario
-		wrUsuarios<<user.getDni()<<","<<user.getPassword()<<","<<user.getNickname()<<","<<user.getNombre()<<","<<user.getRol()<<endl;
-		wrUsuarios.close();
-		return true;
+			wrUsuarios<<user.getDni()<<","<<user.getPassword()<<","<<user.getNickname()<<","<<user.getNombre()<<","<<user.getRol()<<endl;
+			wrUsuarios.close();
+			return true;
 		}else{
 			wrUsuarios.close();
 			return false;
@@ -99,7 +102,6 @@ bool Usuario::addUsuario(Usuario user){
 bool Usuario::deleteUsuario(Usuario user){
 	ifstream rdUsuarios("usuarios.txt");
 	if(user.validarUsuario()){ //Existe usuario en mi lista
-		ofstream wrUsuarios("usuarios.txt");
 		string linea;
 		while(getline(rdUsuarios,linea,',')){
 			if(linea==user.dni){//Elimino la linea entera
@@ -107,7 +109,6 @@ bool Usuario::deleteUsuario(Usuario user){
 			}
 		}
 		rdUsuarios.close();
-		wrUsuarios.close();
 		return true;
 	}
 	return false;

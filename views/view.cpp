@@ -1,5 +1,5 @@
-// #include "../Entities/Maquina.h"
-// #include "../Entities/Reserva.h"
+#include "../Entities/Maquina.h"
+#include "../Entities/Reserva.h"
 #include "../Entities/Usuario.h"
 #include <stdlib.h>
 #include <string>
