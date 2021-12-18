@@ -10,3 +10,8 @@ g++ -o ejecutable view.cpp ../Entities/Maquina.cpp  ../Entities/Usuario.cpp ../E
 ```
 
 ## Ejecución
+
+Dirigirse a la carpeta /views del proyecto y ejecutar:
+```
+./ejecutable
+```
