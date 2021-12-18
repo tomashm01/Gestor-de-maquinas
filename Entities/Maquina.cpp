@@ -36,16 +36,20 @@ void Maquina::setDescrip(string descrip_) {
  */
 bool Maquina:: validarMaquina() {
 
-	if(listaMaquinas.size()<1) return true; //Si la lista esta vacia
-
-	for (auto it=listaMaquinas.begin();it!=listaMaquinas.end();++it){
-		//Existe maquina con ese Id
-		if(it->getId()==this->getId()){
-			return false;
-		}
+	ifstream rdMaquina("maquinas.txt");
+    if(!rdMaquina){
+		return false;
+	}else{
+		string linea;
+    	while(getline(rdMaquina,linea,',')){
+    	    if(stoi(linea)==this->getId()){
+				rdMaquina.close();
+				return false;
+			}
+    	}
+		rdMaquina.close();
+		return true;
 	}
-
-	return true;
 }
 
 
@@ -55,11 +59,19 @@ bool Maquina:: validarMaquina() {
  * Devuelve true si se ha insertado y false si no se ha podido
  */
 bool Maquina::addMaquina(Maquina maquina){
-	if(maquina.validarMaquina()){ //Si puedo insertar la maquina
-		listaMaquinas.push_back(maquina);
-		return true;
+	ofstream wrMaquinas("maquinas.txt",ios::app);
+	if(!wrMaquinas){
+		return false;
+	}else{
+		if(maquina.validarMaquina()){ //Si puedo insertar la maquina
+			wrMaquinas<<maquina.getId()<<","<<maquina.getNucleos()<<","<<maquina.getDescrip()<<endl;
+			wrMaquinas.close();
+			return true;
+		}else{
+			wrMaquinas.close();
+			return false;
+		}
 	}
-	return false;
 }
 
 
@@ -68,14 +80,16 @@ bool Maquina::addMaquina(Maquina maquina){
  * Devuelve true si se ha podido eliminar y false si no se ha podido
  */
 bool Maquina :: deleteMaquina(Maquina maquina){
+	ifstream rdMaquinas("maquinas.txt");
 	if(maquina.validarMaquina()){ //Existe maquina en mi lista
-		for (auto it=listaMaquinas.begin();it!=listaMaquinas.end();++it){
-				//Existe maquina con ese id
-				if(it->getId()==maquina.getId()){
-					listaMaquinas.remove(*it);
-					return true;
-				}
+		string linea;
+		while(getline(rdMaquinas,linea,',')){
+			if(stoi(linea)==maquina.getId()){//Elimino la linea entera
+				linea.clear();
 			}
+		}
+		rdMaquinas.close();
+		return true;
 	}
 	return false;
 }
@@ -86,14 +100,9 @@ bool Maquina :: deleteMaquina(Maquina maquina){
  *Para ello lo elimino y lo inserto
  *Devuelve true si lo modifica correctamente y false si no lo hace
  */
-bool Maquina::changesMaquinaByID(int id_,Maquina maquina){
-	for (auto it=listaMaquinas.begin();it!=listaMaquinas.end();++it){
-				//Existe maquina con ese Id
-				if(it->getId()==id_){
-					listaMaquinas.erase(it);
-					listaMaquinas.insert(it,maquina);
-					return true;
-				}
-			}
-		return false;
+bool Maquina::changesMaquinaByID(Maquina maquina){
+	if(deleteMaquina(maquina)){
+		return addMaquina(maquina);
+	}
+	return false;
 }
