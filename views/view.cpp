@@ -8,7 +8,7 @@
 using namespace std;
 
 int main(void){
-    //Ejecucion g++ -o ejecutable view.cpp Usuario.cpp
+    //Ejecucion g++ -o ejecutable view.cpp 
     //Añado usuario al fichero
     ofstream wrUsuarios("usuarios.txt", ios::app);
     if(!wrUsuarios){
