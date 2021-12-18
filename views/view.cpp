@@ -1,13 +1,29 @@
 // #include "../Entities/Maquina.h"
 // #include "../Entities/Reserva.h"
-#include "Usuario.h"
+#include "../Entities/Usuario.h"
 #include <stdlib.h>
+#include <string>
 #include <iostream>
-#include <cstdlib>
+#include <fstream>
 using namespace std;
 
 int main(void){
-    Usuario* tomas = new Usuario("Tomas", "12345", "3545geg","miNombre","fef");
-	cout<<tomas->toString()<<endl;
+    //Ejecucion g++ -o ejecutable view.cpp Usuario.cpp
+    //Añado usuario al fichero
+    ofstream wrUsuarios("usuarios.txt", ios::app);
+    if(!wrUsuarios){
+        cout << "Error al abrir el fichero" << endl;
+        return -1;
+    }else{
+        Usuario user("4565625","12345678A","nick","nombre","rol");
+        //user.addUsuario(user);
+        // user.deleteUsuario(user);
+        string dni="MIDNI";
+        user.setDni(dni);
+        user.changeUserByDNI(user);
+        
+    }
+
+
 	return 0;
 }

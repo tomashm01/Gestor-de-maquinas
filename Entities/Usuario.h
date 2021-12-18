@@ -7,10 +7,10 @@
 
 #ifndef ENTITIES_USUARIO_H_
 #define ENTITIES_USUARIO_H_
-#include <list>
-#include <cstdlib>
-#include <cstring>
 #include <string>
+#include <cstdlib>
+#include <iostream>
+#include <fstream>
 using namespace std;
 
 class Usuario {
@@ -20,9 +20,8 @@ private:
 	string nickname;
 	string nombreCompleto;
 	string rol;
-	static std::list<Usuario> listaUsuarios;
 public:
-	Usuario(string dni, string password, string nickname, string nombreCompleto,string rol);
+	Usuario(string, string, string, string,string);
 
 	string getDni();
 	string getPassword();
@@ -41,7 +40,7 @@ public:
 	bool addUsuario(Usuario user);
 	bool deleteUsuario(Usuario user);
 	Usuario showUserByDNI(string dni);
-	bool changeUserByDNI(string dni,Usuario user);
+	bool changeUserByDNI(Usuario user);
 
 };
 
