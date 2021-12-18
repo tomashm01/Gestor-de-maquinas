@@ -12,6 +12,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <cstring>
 using namespace std;
 
 class Usuario {
@@ -39,9 +40,9 @@ public:
 
 	bool validarUsuario();
 	bool addUsuario();
-	bool deleteUsuario(string dni);
+	bool deleteUsuario();
 	Usuario showUserByDNI(string dni);
-	bool changeUserByDNI(Usuario user);
+	bool changeUser();
 
 };
 

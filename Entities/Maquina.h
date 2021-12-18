@@ -26,8 +26,8 @@ class Maquina{
 
         bool validarMaquina();
         bool addMaquina();
-        bool deleteMaquina(Maquina maquina);
-        bool changesMaquinaByID(Maquina maquina);
+        bool deleteMaquina();
+        bool changesMaquina(Maquina maquina);
 
 };
 

@@ -50,7 +50,7 @@ bool Reserva::validarReserva() {
 	}else{
 		string linea;
     	while(getline(rdReserva, linea)){
-			string id=linea.substr(0,1);
+			string id=linea.substr(0,linea.find(','));
 			if(stoi(id)==this->getId()){
 				return false;
 			}
@@ -84,20 +84,30 @@ bool Reserva::addReserva(){
  * Borrar Reserva de la lista
  * Devuelve true si se ha podido eliminar y false si no se ha podido
  */
-bool Reserva::deleteReserva(int idEliminar){
-	ifstream rdReserva("reservas.txt");
-	ofstream wrReservas("reservas.txt",ios::app);
-		string linea;
-		while(getline(rdReserva, linea)){
-			string id=linea.substr(0,1);
-			if(stoi(id)==idEliminar){
-				wrReservas<<linea.erase(0,linea.find("\n"));
-				return true;
+bool Reserva::deleteReserva(){
+	ifstream rdReservas("reservas.txt");
+	ofstream wrReservas("temporal.txt");
+	int lineasFichAntiguo=0,lineasFichNuevo=0;
+	string linea;
+
+	if(!this->validarReserva()){ //Existe usuario en mi lista	
+		while(getline(rdReservas, linea)){
+			string dni=linea.substr(0,linea.find(','));
+			if(stoi(dni)==this->getId()){
+				lineasFichAntiguo++;
+				continue;
+			}else{
+				wrReservas<<linea<<endl;
+				lineasFichNuevo++;
+				lineasFichAntiguo++;
 			}
     	}
-	wrReservas.close();
-	rdReserva.close();
-	return false;
+	}
+	if(lineasFichAntiguo==lineasFichNuevo){ //Si son mismas lineas no se ha eliminado
+		return false;
+	}
+	rename("temporal.txt","reservas.txt");
+	return true;
 }
 
 /**
@@ -129,9 +139,9 @@ Reserva Reserva::showReservaByID(int id){
  *Para ello lo elimino y lo inserto
  *Devuelve true si lo modifica correctamente y false si no lo hace
  */
-bool Reserva::changeReservaByID(Reserva reserve){
-	if(this->deleteReserva(reserve.getId())){
-		return this->addReserva();
+bool Reserva::changeReserva(Reserva reserve){
+	if(reserve.deleteReserva()){
+		return reserve.addReserva();
 	}
 	return false;
 }
