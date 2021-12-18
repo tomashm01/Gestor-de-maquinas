@@ -10,18 +10,18 @@ using namespace std;
 int main(void){
     //Ejecucion g++ -o ejecutable view.cpp 
     //Añado usuario al fichero
-    ofstream wrUsuarios("usuarios.txt", ios::app);
-    if(!wrUsuarios){
+    ofstream wrReservas("reservas.txt", ios::app);
+    if(!wrReservas){
         cout << "Error al abrir el fichero" << endl;
         return -1;
     }else{
-        Usuario user("4565625","12345678A","nick","nombre","rol");
-        //user.addUsuario(user);
-        // user.deleteUsuario(user);
-        string dni="MIDNI";
-        user.setDni(dni);
-        user.changeUserByDNI(user);
-        
+        Usuario user=Usuario("1","Pepe","Perez","","");
+        user.deleteUsuario(user.getDni());
+
+        Reserva reserva=Reserva(7,1,"2019-01-01","2019-01-01");
+        cout<<reserva.showReservaByID(7).toString()<<endl;
+       
+        wrReservas.close();
     }
 
 

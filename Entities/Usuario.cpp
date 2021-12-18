@@ -33,7 +33,7 @@ string Usuario::getRol() {
 	return this->rol;
 }
 string Usuario::toString(){
-	return getDni()+".Nickname: "+getNickname()+", rol: "+getRol()+"\n";
+	return this->getDni()+".Nickname: "+this->getNickname()+", rol: "+this->getRol()+"\n";
 }
 
 void Usuario::setDni(string dni) {
@@ -99,12 +99,12 @@ bool Usuario::addUsuario(Usuario user){
 * Borrar usuario de la lista
 * Devuelve true si se ha podido eliminar y false si no se ha podido
 */
-bool Usuario::deleteUsuario(Usuario user){
+bool Usuario::deleteUsuario(string dni){
 	ifstream rdUsuarios("usuarios.txt");
-	if(user.validarUsuario()){ //Existe usuario en mi lista
+	if(this->validarUsuario()){ //Existe usuario en mi lista
 		string linea;
 		while(getline(rdUsuarios,linea,',')){
-			if(linea==user.dni){//Elimino la linea entera
+			if(linea==dni){//Elimino la linea entera
 				linea.clear();
 			}
 		}
@@ -123,8 +123,15 @@ Usuario Usuario::showUserByDNI(string dni){
 	ifstream rdUsuarios("usuarios.txt");
 	string linea;
 	while(getline(rdUsuarios,linea)){
-		if(linea.find(dni)!=string::npos){
-			Usuario userReturn=Usuario(linea.substr(0,linea.find(",")),linea.substr(linea.find(",")+1,linea.find(",")),linea.substr(linea.find(",")+2,linea.find(",")),linea.substr(linea.find(",")+4,linea.find(",")),linea.substr(linea.find(",")+4,linea.find(",")));
+		stringstream ss(linea);
+		if(linea.substr(0,linea.find(','))==dni){
+			string dni,password,nickname,nombreCompleto,rol;
+			getline(ss,dni,',');
+			getline(ss,password,',');
+			getline(ss,nickname,',');
+			getline(ss,nombreCompleto,',');
+			getline(ss,rol);
+			Usuario userReturn=Usuario(dni,password,nickname,nombreCompleto,rol);
 			rdUsuarios.close();
 			return userReturn;
 		}
@@ -138,7 +145,7 @@ Usuario Usuario::showUserByDNI(string dni){
 *Devuelve true si lo modifica correctamente y false si no lo hace
 */
 bool Usuario::changeUserByDNI(Usuario user){
-	if(deleteUsuario(user)){
+	if(deleteUsuario(user.getDni())){
 		return addUsuario(user);
 	}
 	return false;

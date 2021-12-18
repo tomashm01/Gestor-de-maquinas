@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 #ifndef RESERVA_H
 #define RESERVA_H
@@ -24,15 +25,16 @@ public:
 	int getDias();
 	string getFechaIn();
 	string getFechaOut();
-
+	string toString();
+	
 	void setId(int idReserva);
 	void setDias(int maxdias);
 	void setFechaIn(string fechain);
 	void setFechaOut(string fechaout);
 
 	bool validarReserva();
-	bool addReserva(Reserva reserve);
-	bool deleteReserva(Reserva reserve);
+	bool addReserva();
+	bool deleteReserva(int id);
 	Reserva showReservaByID(int idReserva);
 	bool changeReservaByID(Reserva reserve);
 

@@ -20,6 +20,9 @@ string Reserva::getFechaIn() {
 string Reserva::getFechaOut() {
 	return this->fechaout_;
 }
+string Reserva::toString(){
+	return to_string(this->getId())+".Fecha reserva: "+this->getFechaIn()+", fecha salida: "+this->getFechaOut()+"\n";
+}
 
 void Reserva::setId(int idReserva) {
 	idReserva_ = idReserva;
@@ -46,9 +49,9 @@ bool Reserva::validarReserva() {
 		return false;
 	}else{
 		string linea;
-    	while(getline(rdReserva,linea,',')){
-    	    if(stoi(linea)==this->getId()){
-				rdReserva.close();
+    	while(getline(rdReserva, linea)){
+			string id=linea.substr(0,1);
+			if(stoi(id)==this->getId()){
 				return false;
 			}
     	}
@@ -61,14 +64,14 @@ bool Reserva::validarReserva() {
  * Añado Reserva al final de la lista
  * Devuelve true si se ha insertado y false si no se ha podido
  */
-bool Reserva::addReserva(Reserva reserve){
+bool Reserva::addReserva(){
 
 	ofstream wrReservas("reservas.txt",ios::app);
 	if(!wrReservas){
 		return false;
 	}else{
-		if(reserve.validarReserva()){ //Si puedo insertar la reserva
-			wrReservas<<reserve.getId()<<","<<reserve.getDias()<<","<<reserve.getFechaIn()<<","<<reserve.getFechaOut()<<endl;
+		if(this->validarReserva()){ //Si puedo insertar la reserva
+			wrReservas<<this->getId()<<","<<this->getDias()<<","<<this->getFechaIn()<<","<<this->getFechaOut()<<endl;
 			wrReservas.close();
 			return true;
 		}else{
@@ -81,18 +84,19 @@ bool Reserva::addReserva(Reserva reserve){
  * Borrar Reserva de la lista
  * Devuelve true si se ha podido eliminar y false si no se ha podido
  */
-bool Reserva::deleteReserva(Reserva reserve){
+bool Reserva::deleteReserva(int idEliminar){
 	ifstream rdReserva("reservas.txt");
-	if(reserve.validarReserva()){ //Existe reserva en mi lista
+	ofstream wrReservas("reservas.txt",ios::app);
 		string linea;
-		while(getline(rdReserva,linea,',')){
-			if(stoi(linea)==reserve.getId()){//Elimino la linea entera
-				linea.clear();
+		while(getline(rdReserva, linea)){
+			string id=linea.substr(0,1);
+			if(stoi(id)==idEliminar){
+				wrReservas<<linea.erase(0,linea.find("\n"));
+				return true;
 			}
-		}
-		rdReserva.close();
-		return true;
-	}
+    	}
+	wrReservas.close();
+	rdReserva.close();
 	return false;
 }
 
@@ -105,10 +109,16 @@ Reserva Reserva::showReservaByID(int id){
 	ifstream rdReserva("reservas.txt");
 	string linea;
 	while(getline(rdReserva,linea)){
-		if(linea.find(id)!=string::npos){
-			Reserva resReturn=Reserva(stoi(linea.substr(0,linea.find(','))),stoi(linea.substr(linea.find(',')+1,linea.find(',')+1)),linea.substr(linea.find(',')+2,linea.find(',')+2),linea.substr(linea.find(',')+3,linea.find(',')+3));
+		stringstream ss(linea);
+		if(stoi(linea.substr(0,linea.find(',')))==id){
+			string id,maxdias,fechain, fechaout;
+			getline(ss,id,',');
+			getline(ss,maxdias,',');
+			getline(ss,fechain,',');
+			getline(ss,fechaout);
+			Reserva userReturn=Reserva(stoi(id),stoi(maxdias),fechain,fechaout);
 			rdReserva.close();
-			return resReturn;
+			return userReturn;
 		}
 	}
 	return Reserva(-1,0,"","");
@@ -120,8 +130,8 @@ Reserva Reserva::showReservaByID(int id){
  *Devuelve true si lo modifica correctamente y false si no lo hace
  */
 bool Reserva::changeReservaByID(Reserva reserve){
-	if(deleteReserva(reserve)){
-		return addReserva(reserve);
+	if(this->deleteReserva(reserve.getId())){
+		return this->addReserva();
 	}
 	return false;
 }
