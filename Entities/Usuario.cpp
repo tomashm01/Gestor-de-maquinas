@@ -147,7 +147,7 @@ Usuario Usuario::showUserByDNI(string dni){
 			return userReturn;
 		}
 	}
-	return (Usuario("-1","","","",""));
+	return (Usuario("-1",this->getPassword(),"","",""));
 }
 
 /**
