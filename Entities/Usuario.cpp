@@ -6,7 +6,6 @@
  */
 
 #include "Usuario.h"
-using namespace std;
 
 Usuario::Usuario(string dni, string password, string nickname,
 		string nombreCompleto, string rol) {
