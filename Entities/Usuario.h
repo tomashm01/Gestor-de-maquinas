@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 using namespace std;
 
 class Usuario {
@@ -38,7 +39,7 @@ public:
 
 	bool validarUsuario();
 	bool addUsuario(Usuario user);
-	bool deleteUsuario(Usuario user);
+	bool deleteUsuario(string dni);
 	Usuario showUserByDNI(string dni);
 	bool changeUserByDNI(Usuario user);
 
