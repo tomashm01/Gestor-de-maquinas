@@ -25,7 +25,7 @@ class Maquina{
 	    void setDescrip(string descrip_);
 
         bool validarMaquina();
-        bool addMaquina(Maquina maquina);
+        bool addMaquina();
         bool deleteMaquina(Maquina maquina);
         bool changesMaquinaByID(Maquina maquina);
 

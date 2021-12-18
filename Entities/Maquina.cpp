@@ -41,9 +41,9 @@ bool Maquina:: validarMaquina() {
 		return false;
 	}else{
 		string linea;
-    	while(getline(rdMaquina,linea,',')){
-    	    if(stoi(linea)==this->getId()){
-				rdMaquina.close();
+    	while(getline(rdMaquina, linea)){
+			string id=linea.substr(0,1);
+			if(stoi(id)==this->getId()){
 				return false;
 			}
     	}
@@ -58,13 +58,13 @@ bool Maquina:: validarMaquina() {
  * Añado maquinas al final de la lista
  * Devuelve true si se ha insertado y false si no se ha podido
  */
-bool Maquina::addMaquina(Maquina maquina){
+bool Maquina::addMaquina(){
 	ofstream wrMaquinas("maquinas.txt",ios::app);
 	if(!wrMaquinas){
 		return false;
 	}else{
-		if(maquina.validarMaquina()){ //Si puedo insertar la maquina
-			wrMaquinas<<maquina.getId()<<","<<maquina.getNucleos()<<","<<maquina.getDescrip()<<endl;
+		if(this->validarMaquina()){ //Si puedo insertar la maquina
+			wrMaquinas<<this->getId()<<","<<this->getNucleos()<<","<<this->getDescrip()<<endl;
 			wrMaquinas.close();
 			return true;
 		}else{
@@ -102,7 +102,7 @@ bool Maquina :: deleteMaquina(Maquina maquina){
  */
 bool Maquina::changesMaquinaByID(Maquina maquina){
 	if(deleteMaquina(maquina)){
-		return addMaquina(maquina);
+		return maquina.addMaquina();
 	}
 	return false;
 }
