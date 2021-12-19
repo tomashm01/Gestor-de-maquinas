@@ -19,16 +19,16 @@ class Maquina{
 
         int getId();
 	    int getNucleos();
-	    string getDescrip();
+	    string getDescripcion();
 
 	    void setId(int id_);
-	    void setNucelos(int nucleos_);
-	    void setDescrip(string descrip_);
+	    void setNucleos(int nucleos_);
+	    void setDescripcion(string descrip_);
 
         bool validarMaquina();
         bool addMaquina();
         bool deleteMaquina();
-        bool changesMaquina(Maquina maquina);
+        bool changesMaquina();
         void showMaquinas();
 
 };
