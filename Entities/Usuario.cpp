@@ -163,3 +163,19 @@ bool Usuario::changeUser(){
 }
 
 
+//Muestra por pantalla todos los usuarios
+void Usuario::showAllUsers(){
+	ifstream rdUsuarios("usuarios.txt");
+	string linea,dni,nickname,nombreCompleto,rol,password;
+	while(getline(rdUsuarios,linea)){
+		stringstream ss(linea);
+		getline(ss,dni,',');
+		getline(ss,password,',');
+		getline(ss,nickname,',');
+		getline(ss,nombreCompleto,',');
+		getline(ss,rol,',');
+		Usuario user=Usuario(dni,nickname,nickname,nombreCompleto,rol);
+		cout<<user.toString()<<endl;
+	}
+	rdUsuarios.close();
+}

@@ -43,6 +43,7 @@ public:
 	bool deleteUsuario();
 	Usuario showUserByDNI(string dni);
 	bool changeUser();
+	void showAllUsers();
 
 };
 
