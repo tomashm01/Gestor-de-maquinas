@@ -24,7 +24,7 @@ int main(void){
 
 	Menu principal=Menu(0,"Menu Principal",{"Iniciar Sesion","Registrarse","Salir"});
 	Menu menuUsuario=Menu(0,"Menu Usuario",{"Reservar","Cancelar reserva","Ver Reservas","Recuperar contraseña","Salir"});
-	Menu menuMaquina=Menu(0,"Menu Maquina",{"Añadir reserva","Cancelar reserva","Ver Reservas","Salir"});
+	Menu menuMaquina=Menu(0,"Menu Maquina",{"Añadir maquina","Eliminar maquina","Ver maquinas","Cambiar maquinas","Salir"});
 	Menu menuAdmin=Menu(0,"Menu Administrador",{"Añadir usuario","Eliminar usuario","Ver usuarios","Modificar usuario","Salir"});
 
 	bool salirApp=false,esUsuario=false,esAdminMaquina=false,esAdminUsuarios=false;
@@ -65,12 +65,12 @@ int main(void){
 				}else{
 					cout<<"Bienvenido "<<usuario.getNombre()<<endl;
 					//Comprobar rol
-					if(usuario.getRol()=="usuario"){
-						esUsuario=true;
+					if(usuario.getRol()=="adminMaquinas"){
+						esAdminMaquina=true;	
 					}else if(usuario.getRol()=="adminUsuarios"){
 						esAdminUsuarios=true;
 					}else{
-						esAdminMaquina=true;
+						esUsuario=true;
 					}
 					salirApp=true;
 				}
@@ -79,9 +79,9 @@ int main(void){
 				break;
 			}
 			case 2:{ //Registrarse
-
-				cout<<"Introduce tu nombre(sin espacios ni comas): "<<endl;
-				getline(cin,nombre,' ');
+				cin.ignore();
+				cout<<"Introduce tu nombre: "<<endl;
+				getline(cin,nombre);
 				cout<<"Introduce tu nickname: "<<endl;
 				cin>>nickname;
 				cin.ignore();
@@ -213,9 +213,9 @@ int main(void){
 			menuAdmin.setOpcion(opcion);
 			switch(menuAdmin.getOpcion()){
 				case 1:{//Añadir usuario
-
+					cin.ignore();
 					cout<<"Introduce el nombre(sin espacios ni comas): "<<endl;
-					cin>>nombre;
+					getline(cin,nombre);
 
 					cout<<"Introduce el nickname: "<<endl;
 					cin>>nickname;
@@ -265,11 +265,11 @@ int main(void){
 					usuario.showAllUsers();
 					cout<<"Introduce el dni del usuario a modificar: "<<endl;
 					cin>>dni;
-
+					cin.ignore();
 					usuarioTemp=Usuario(dni,"","","","");
 
 					cout<<"Introduce el nuevo nombre: "<<endl;
-					cin>>nombre;
+					getline(cin,nombre);
 					cout<<"Introduce el nuevo nickname: "<<endl;
 					cin>>nickname;
 
@@ -293,7 +293,75 @@ int main(void){
 			}
 		}while(esAdminUsuarios);
 	}else{
+		do{
+			menuMaquina.mostrar();
+			cin>>opcion;
+			menuMaquina.setOpcion(opcion);
+			switch(menuMaquina.getOpcion()){
 
+				case 1:{// Añadir maquina
+					id=rand()%1000000;
+					cout<<"Introduce los nucleos de la máquina: "<<endl;
+					cin>>nucleos;
+					cin.ignore();
+					cout<<"Introduce una descripcion: "<<endl;
+					getline(cin,descripcion);
+
+					maquinaTemp=Maquina(id,nucleos,descripcion);
+					if(maquinaTemp.addMaquina()){
+						cout<<"Maquina registrada correctamente"<<endl;
+						maquina=maquinaTemp;
+					}else{
+						cout<<"Error al registrar maquina"<<endl;
+					}
+					break;
+				}
+				case 2:{ //Eliminar maquina
+					maquina.showMaquinas();
+					cout<<"Introduce el id de la maquina a eliminar: "<<endl;
+					cin>>id;
+					maquina=Maquina(id,0,"");
+					if(maquina.deleteMaquina()){
+						cout<<"Maquina eliminada correctamente"<<endl;
+					}else{
+						cout<<"No se ha podido eliminar la maquina"<<endl;
+					}
+					break;
+				}
+				case 3:{//Ver maquinas
+					maquina.showMaquinas();
+					break;
+				}
+				case 4:{//Cambiar maquina
+					maquina.showMaquinas();
+					cout<<"Introduce el id de la maquina a modificar: "<<endl;
+					cin>>id;
+
+					maquinaTemp=Maquina(id,0,"");
+
+					cout<<"Introduce los nuevos nucleos: "<<endl;
+					cin>>nucleos;
+					cin.ignore();
+					cout<<"Introduce la nueva descripcion: "<<endl;
+					getline(cin,descripcion);
+
+					maquinaTemp.setNucleos(nucleos);
+					maquinaTemp.setDescripcion(descripcion);
+
+					if(maquinaTemp.changesMaquina()){
+						cout<<"Maquina modificada correctamente"<<endl;
+					}else{
+						cout<<"No se ha podido modificar la maquina"<<endl;
+					}
+					break;
+				}
+				case 5: { //Salir
+					return 0;
+				}
+			}
+
+
+		}while(esAdminMaquina);
 	}
 	
 	return 0;

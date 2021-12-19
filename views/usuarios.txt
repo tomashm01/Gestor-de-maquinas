@@ -1,6 +1,3 @@
-dni,password,nickname,nombre,admin
 09664385S,micontraseña,tomashm01,tomas hidalgo,adminUsuarios
 54919518A,micontraseña,juanperez,juan perez,adminMaquinas
 42127266Y,contraseñaCambiada,Manu,Manuel Suarez,usuario
-31880317V,marquitos12,Diaz,Marcos,usuario
-17291536K,gethtehgtg,juanito02,Juan,usuario

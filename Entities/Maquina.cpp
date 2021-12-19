@@ -13,7 +13,7 @@ int Maquina::getId() {
 int Maquina::getNucleos() {
 	return this->nucleos_;
 }
-string Maquina::getDescrip() {
+string Maquina::getDescripcion() {
 	return this->descrip_;
 
 }
@@ -21,10 +21,10 @@ string Maquina::getDescrip() {
 void Maquina::setId(int id_) {
 	this->id_ = id_;
 }
-void Maquina::setNucelos(int nucleos_) {
+void Maquina::setNucleos(int nucleos_) {
 	this->nucleos_ = nucleos_;
 }
-void Maquina::setDescrip(string descrip_) {
+void Maquina::setDescripcion(string descrip_) {
 	this->descrip_ = descrip_;
 }
 
@@ -64,7 +64,7 @@ bool Maquina::addMaquina(){
 		return false;
 	}else{
 		if(this->validarMaquina()){ //Si puedo insertar la maquina
-			wrMaquinas<<this->getId()<<","<<this->getNucleos()<<","<<this->getDescrip()<<endl;
+			wrMaquinas<<this->getId()<<","<<this->getNucleos()<<","<<this->getDescripcion()<<endl;
 			wrMaquinas.close();
 			return true;
 		}else{
@@ -111,9 +111,9 @@ bool Maquina :: deleteMaquina(){
  *Para ello lo elimino y lo inserto
  *Devuelve true si lo modifica correctamente y false si no lo hace
  */
-bool Maquina::changesMaquina(Maquina maquina){
-	if(maquina.deleteMaquina()){
-		return maquina.addMaquina();
+bool Maquina::changesMaquina(){
+	if(this->deleteMaquina()){
+		return this->addMaquina();
 	}
 	return false;
 }
