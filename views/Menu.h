@@ -17,8 +17,7 @@ class Menu{
  
         inline void setOpcion(int opcion) { this->opcion = opcion;};
         inline int getOpcion(){return this->opcion;};
-        inline string getTitulo(){return this->titulo;};
-        inline vector<string> getOpciones(){return this->opciones;};
+        inline int getOpciones(){return this->opciones.size();};
         void mostrar();
 };
 
