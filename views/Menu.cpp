@@ -1,4 +1,4 @@
-#include "Menu.h";
+#include "Menu.h"
 
 Menu::Menu(int opcion,string titulo,vector<string> opciones){
     this->opcion=opcion;
@@ -6,10 +6,8 @@ Menu::Menu(int opcion,string titulo,vector<string> opciones){
     this->opciones=opciones;
 }
 void Menu::mostrar(){
-    do{
-        for(int i=0;i<this->opciones.size();i++){
-            cout<<i+1<<". "<<this->opciones[i]<<endl;
-        }
-        cin>>this->opcion;
-    }while(this->opcion<1 || this->opcion>this->opciones.size());
+    
+    for(int i=0;i<this->opciones.size();i++){
+        cout<<i+1<<". "<<this->opciones[i]<<endl;
+    }
 }

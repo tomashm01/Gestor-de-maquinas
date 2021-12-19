@@ -1,15 +1,23 @@
 #include "Reserva.h"
 
-Reserva::Reserva(int idReserva, int max_dias, string fechain, string fechaout) {
+Reserva::Reserva(int id,string dniUsuario,int idMaquina, int max_dias, string fechain, string fechaout) {
+	this->setId(id);
+	this->setIdMaquina(idMaquina);
 	this->setDias(max_dias);
 	this->setFechaIn(fechain);
 	this->setFechaOut(fechaout);
-	this->setId(idReserva);
+	this->setDni(dniUsuario);
 }
 
 //SETTERS Y GETTERS
+string Reserva::getDni() {
+	return this->dniUser;
+}
 int Reserva::getId() {
-	return idReserva_;
+	return this->id;
+}
+int Reserva::getIdMaquina() {
+	return this->idMaquina;
 }
 int Reserva::getDias() {
 	return this->maxdias_;
@@ -21,11 +29,17 @@ string Reserva::getFechaOut() {
 	return this->fechaout_;
 }
 string Reserva::toString(){
-	return to_string(this->getId())+".Fecha reserva: "+this->getFechaIn()+", fecha salida: "+this->getFechaOut()+"\n";
+	return this->getDni()+".Fecha reserva: "+this->getFechaIn()+", fecha salida: "+this->getFechaOut()+"\n";
 }
 
-void Reserva::setId(int idReserva) {
-	idReserva_ = idReserva;
+void Reserva::setDni(string dniUser) {
+	this->dniUser = dniUser;
+}
+void Reserva::setId(int id) {
+	this->id = id;
+}
+void Reserva::setIdMaquina(int idMaquina) {
+	this->idMaquina = idMaquina;
 }
 void Reserva::setDias(int max_dias) {
 	this->maxdias_ = max_dias;
@@ -51,7 +65,7 @@ bool Reserva::validarReserva() {
 		string linea;
     	while(getline(rdReserva, linea)){
 			string id=linea.substr(0,linea.find(','));
-			if(stoi(id)==this->getId()){
+			if(atoi(id.c_str())==this->getId()){
 				return false;
 			}
     	}
@@ -71,7 +85,7 @@ bool Reserva::addReserva(){
 		return false;
 	}else{
 		if(this->validarReserva()){ //Si puedo insertar la reserva
-			wrReservas<<this->getId()<<","<<this->getDias()<<","<<this->getFechaIn()<<","<<this->getFechaOut()<<endl;
+			wrReservas<<this->getId()<<","<<this->getDni()<<","<<this->getIdMaquina()<<","<<this->getDias()<<","<<this->getFechaIn()<<","<<this->getFechaOut()<<endl;
 			wrReservas.close();
 			return true;
 		}else{
@@ -92,8 +106,8 @@ bool Reserva::deleteReserva(){
 
 	if(!this->validarReserva()){ //Existe usuario en mi lista	
 		while(getline(rdReservas, linea)){
-			string dni=linea.substr(0,linea.find(','));
-			if(stoi(dni)==this->getId()){
+			string id=linea.substr(0,linea.find(','));
+			if(atoi(id.c_str())==this->getId()){
 				lineasFichAntiguo++;
 				continue;
 			}else{
@@ -115,23 +129,28 @@ bool Reserva::deleteReserva(){
  * Devuelve la Reserva encontrada con ese id si lo encuentra o devuelve -1
  * si no lo ha encontrado ese id
  */
-Reserva Reserva::showReservaByID(int id){
+Reserva Reserva::showReservaByDni(string dniUser){
 	ifstream rdReserva("reservas.txt");
 	string linea;
+
 	while(getline(rdReserva,linea)){
+
 		stringstream ss(linea);
-		if(stoi(linea.substr(0,linea.find(',')))==id){
-			string id,maxdias,fechain, fechaout;
-			getline(ss,id,',');
+		string id,idMaquina,dniUsuario,maxdias,fechain, fechaout;
+		getline(ss,id,',');
+		getline(ss,dniUsuario,',');
+
+		if(dniUsuario==dniUser){
+			getline(ss,idMaquina,',');
 			getline(ss,maxdias,',');
 			getline(ss,fechain,',');
 			getline(ss,fechaout);
-			Reserva userReturn=Reserva(stoi(id),stoi(maxdias),fechain,fechaout);
+			Reserva userReturn=Reserva(atoi(id.c_str()),dniUsuario,atoi(idMaquina.c_str()),atoi(maxdias.c_str()),fechain,fechaout);
 			rdReserva.close();
 			return userReturn;
 		}
 	}
-	return Reserva(-1,0,"","");
+	return Reserva(1,"0",0,0,"","");
 }
 
 /**
@@ -144,4 +163,25 @@ bool Reserva::changeReserva(Reserva reserve){
 		return reserve.addReserva();
 	}
 	return false;
+}
+
+//Muestra todas las reservas
+void Reserva::showReservas(string dni){
+	ifstream rdReserva("reservas.txt");
+	string linea;
+	string id,fechaIn,fechaOut,maxdias,idMaquina,dniUser;
+	while(getline(rdReserva,linea)){
+		stringstream ss(linea);
+		getline(ss,id,',');
+		getline(ss,dniUser,',');
+		if(dni==dniUser){
+			getline(ss,idMaquina,',');
+			getline(ss,maxdias,',');
+			getline(ss,fechaIn,',');
+			getline(ss,fechaOut,',');
+			Reserva rs=Reserva(atoi(id.c_str()),dniUser,atoi(idMaquina.c_str()),atoi(maxdias.c_str()),fechaIn, fechaOut);
+			cout<<rs.toString();
+		}
+		
+	}
 }

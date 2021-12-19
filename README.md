@@ -6,7 +6,7 @@
 
 ## Compilación del proyecto
 ``` 
-g++ -o ejecutable view.cpp ../Entities/Maquina.cpp  ../Entities/Usuario.cpp ../Entities/Reserva.cpp 
+g++ -o ejecutable view.cpp ../Entities/Maquina.cpp  ../Entities/Usuario.cpp ../Entities/Reserva.cpp Menu.cpp
 ```
 
 ## Ejecución

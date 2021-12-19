@@ -1,4 +1,4 @@
 dni,password,nickname,nombre,admin
-8398389F,micontraseña,tomashm01,tomas hidalgo,adminUsuarios
-1234567P,micontraseña,juanperez,juan perez,adminMaquinas
-8329789K,micontraseña,Manu,Manuel Suarez,usuario
+09664385S,micontraseña,tomashm01,tomas hidalgo,adminUsuarios
+54919518A,micontraseña,juanperez,juan perez,adminMaquinas
+42127266Y,micontraseña,Manu,Manuel Suarez,usuario

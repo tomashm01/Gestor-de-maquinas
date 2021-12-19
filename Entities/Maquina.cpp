@@ -43,7 +43,7 @@ bool Maquina:: validarMaquina() {
 		string linea;
     	while(getline(rdMaquina, linea)){
 			string id=linea.substr(0,linea.find(','));
-			if(stoi(id)==this->getId()){
+			if(id==to_string(this->getId())){
 				return false;
 			}
     	}
@@ -88,7 +88,7 @@ bool Maquina :: deleteMaquina(){
 	if(!this->validarMaquina()){ //Existe usuario en mi lista	
 		while(getline(rdReservas, linea)){
 			string dni=linea.substr(0,linea.find(','));
-			if(stoi(dni)==this->getId()){
+			if(atoi(dni.c_str())==this->getId()){
 				lineasFichAntiguo++;
 				continue;
 			}else{
@@ -116,4 +116,21 @@ bool Maquina::changesMaquina(Maquina maquina){
 		return maquina.addMaquina();
 	}
 	return false;
+}
+
+/**
+ * Devuelve una máquina 
+ * 
+ */
+void Maquina::showMaquinas(){
+	ifstream rdMaquina("maquinas.txt");
+	string linea;
+	string id,nucleos,descrip;
+	while(getline(rdMaquina,linea)){
+		stringstream ss(linea);
+		getline(ss,id,',');
+		getline(ss,nucleos,',');
+		getline(ss,descrip,',');
+		cout<<id<<"."<<" Nucleos: "<<nucleos<<". Descripcion: "<<descrip<<endl;
+	}
 }

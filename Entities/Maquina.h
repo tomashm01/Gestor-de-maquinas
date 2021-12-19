@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 using namespace std;
 
 class Maquina{
@@ -28,6 +29,7 @@ class Maquina{
         bool addMaquina();
         bool deleteMaquina();
         bool changesMaquina(Maquina maquina);
+        void showMaquinas();
 
 };
 
